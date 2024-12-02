@@ -1,6 +1,6 @@
 import React from 'react'
 // import { useFirebase } from '../../context/firebase';
-import BooksList from './BooksList';
+import BooksList from '../Books/BooksList';
 
 
 const HomePage = () => {

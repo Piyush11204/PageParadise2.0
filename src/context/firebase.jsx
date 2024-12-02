@@ -7,7 +7,7 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, addDoc,getDocs, collection } from "firebase/firestore";
+import { getFirestore, addDoc,getDocs,doc,getDoc, collection } from "firebase/firestore";
 import { signInWithPopup } from "firebase/auth";
 
 // Firebase configuration
@@ -83,6 +83,22 @@ export const FirebaseProvider = (props) => {
         throw error;
     }
 };
+   const fetchBookById = async (id) => {
+    try {
+        const docRef = doc(Firestore, "books", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            return { id: docSnap.id, ...docSnap.data() };
+            } else {
+            console.error("No such document!");
+            return null;
+            }
+   } catch (error) {
+        console.error("Error fetching book:", error);
+        throw error;
+    }
+};
+
 
   // Add a new book to Firestore
   const HandleCreateNewBook = async (
@@ -144,6 +160,7 @@ export const FirebaseProvider = (props) => {
         logout,
         HandleCreateNewBook,
         fetchBooks,
+        fetchBookById,
       }}
     >
       {props.children}
