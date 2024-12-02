@@ -1,19 +1,16 @@
 import React from 'react'
-import { useFirebase } from '../../context/firebase';
+// import { useFirebase } from '../../context/firebase';
+import BooksList from './BooksList';
 
 
 const HomePage = () => {
-    const firebase = useFirebase();
-    const logout = async () => {
-        try {
-            await firebase.logout();
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    // const firebase = useFirebase();
+    
+    
   return (
     <div>
-      <button onClick={logout}>Logout</button>
+      
+       <BooksList/>
     </div>
   )
 }
