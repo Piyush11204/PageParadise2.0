@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../context/firebase';
 import { Link } from 'react-router-dom';
-import { Menu, X, BookOpen, Home, LogOut, UserPlus, LogIn } from 'lucide-react';
+import { Menu, X, BookOpen, Home, LogOut, LogIn } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -141,7 +141,7 @@ const Navbar = () => {
                         <div className="p-4 space-y-4">
                             <Link 
                                 to="/" 
-                                className="block text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
+                                className=" text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
                                 onClick={toggleMobileSidePanel}
                             >
                                 <Home size={18} />
@@ -149,7 +149,7 @@ const Navbar = () => {
                             </Link>
                             <Link 
                                 to="/Book/AddBook" 
-                                className="block text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
+                                className=" text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
                                 onClick={toggleMobileSidePanel}
                             >
                                 <BookOpen size={18} />
@@ -177,7 +177,7 @@ const Navbar = () => {
                                 <>
                                     <Link 
                                         to="/login" 
-                                        className="block text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
+                                        className=" text-orange-700 hover:bg-orange-100 p-2 rounded flex items-center space-x-2"
                                         onClick={toggleMobileSidePanel}
                                     >
                                         <LogIn size={18} />

@@ -5,10 +5,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithRedirect,
   onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, addDoc,getDocs, collection } from "firebase/firestore";
+import { signInWithPopup } from "firebase/auth";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -121,9 +121,9 @@ export const FirebaseProvider = (props) => {
   };
 
   // Login with Google
-  const googleLogin =  () => {
+  const googleLogin = async () => {
     try {
-      return signInWithRedirect(FirebaseAuth, GoogleProvider);
+      return await signInWithPopup(FirebaseAuth, GoogleProvider);
     } catch (error) {
       console.error("Google Login Error:", error.message);
       throw error;
