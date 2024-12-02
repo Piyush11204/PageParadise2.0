@@ -58,14 +58,14 @@ const BookDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 p-4 sm:p-6">
-      <div className="max-w-5xl mx-auto bg-white shadow-2xl rounded-md overflow-hidden">
+      <div className="max-w-6xl mx-auto bg-white shadow-2xl rounded-md overflow-hidden">
         {/* Book Header */}
-        <div className="bg-orange-500 text-white p-6">
-          <h1 className="text-4xl font-bold mb-2">{book.name}</h1>
+        <div className="bg-orange-500 text-white p-4">
+          <h1 className="text-3xl font-bold mb-1">{book.name}</h1>
         </div>
 
         {/* Book Details Container */}
-        <div className="grid md:grid-cols-2 gap-8 p-8">
+        <div className="grid md:grid-cols-2 gap-4">
           {/* Book Image */}
           <div className="flex flex-col items-center">
             {book.image ? (
@@ -73,7 +73,7 @@ const BookDetails = () => {
                 <img
                   src={`data:image/jpeg;base64,${book.image}`}
                   alt={book.name}
-                  className="w-96 h-[500px] object-cover rounded-xl shadow-lg transition-transform duration-300 group-hover:scale-105"
+                  className=" h-[500px] object-cover rounded shadow-lg transition-transform duration-300 group-hover:scale-105"
                 />
                 <button 
                   onClick={() => setLiked(!liked)}
@@ -102,8 +102,8 @@ const BookDetails = () => {
               </div>
             </div>
 
-            <div>
-              <h3 className="text-xl font-semibold text-purple-800 mb-2">Description</h3>
+            <div className="p-8">
+              <h3 className="text-xl font-semibold text-orange-800 mb-2">Description</h3>
               <p className="text-gray-700 leading-relaxed">
                 {book.description}
               </p>

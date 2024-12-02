@@ -39,7 +39,7 @@ const BooksList = () => {
   const filteredBooks = books.filter((book) => {
     const regex = new RegExp(searchTerm, "i"); // Case-insensitive regex
     return (
-      regex.test(book.title) && 
+      regex.test(book.name) && 
       (selectedCategory ? book.category === selectedCategory : true)
     );
   });
