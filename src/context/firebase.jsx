@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithPopup,
+  signInWithRedirect,
   onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, addDoc,getDocs, collection } from "firebase/firestore";
@@ -123,7 +123,7 @@ export const FirebaseProvider = (props) => {
   // Login with Google
   const googleLogin =  () => {
     try {
-      return signInWithPopup(FirebaseAuth, GoogleProvider);
+      return signInWithRedirect(FirebaseAuth, GoogleProvider);
     } catch (error) {
       console.error("Google Login Error:", error.message);
       throw error;

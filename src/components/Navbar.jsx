@@ -28,8 +28,8 @@ const Navbar = () => {
     }
 
     return (
-        <nav className="bg-purple-600 p-4">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <nav className="bg-purple-600 fixed w-full p-4">
+            <div className="max-w-7xl  mx-auto flex justify-between items-center">
                 {/* Logo or Brand Name */}
                 <div className="text-white font-bold text-lg">
                     <Link to="/">PageParadise</Link>
