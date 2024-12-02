@@ -121,9 +121,9 @@ export const FirebaseProvider = (props) => {
   };
 
   // Login with Google
-  const googleLogin = async () => {
+  const googleLogin =  () => {
     try {
-      return await signInWithPopup(FirebaseAuth, GoogleProvider);
+      return signInWithPopup(FirebaseAuth, GoogleProvider);
     } catch (error) {
       console.error("Google Login Error:", error.message);
       throw error;
