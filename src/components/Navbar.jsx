@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFirebase } from '../context/firebase';
 import { Link } from 'react-router-dom';
-import { Menu, X, BookOpen, Home, LogOut, LogIn } from 'lucide-react';
+import { Menu, X, BookOpen, Home, LogOut, LogIn, ShoppingBag, InfoIcon } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -63,7 +63,7 @@ const Navbar = () => {
 
                 {/* Desktop Navigation Links */}
                 <div className="hidden md:flex space-x-6 items-center">
-                    <Link to="/home" className="text-white hover:text-orange-200 flex items-center space-x-2 transition-colors">
+                    <Link to="/" className="text-white hover:text-orange-200 flex items-center space-x-2 transition-colors">
                         <Home size={18} />
                         <span>Home</span>
                     </Link>
@@ -71,7 +71,14 @@ const Navbar = () => {
                         <BookOpen size={18} />
                         <span>Add Books</span>
                     </Link>
-                    <Link to="/about" className="text-white hover:text-orange-200 transition-colors">About</Link>
+                    <Link to="/about" className="text-white hover:text-orange-200 flex items-center space-x-2 transition-colors">
+                    <InfoIcon size={18} />
+                    <span>About</span>
+                    </Link>
+                    <Link to="/cart" className="text-white hover:text-orange-200 flex items-center space-x-2 transition-colors">
+                    <ShoppingBag size={18} />
+                    <span>Cart</span>
+                    </Link>
                 </div>
 
                 {/* User Profile & Logout */}
@@ -157,10 +164,19 @@ const Navbar = () => {
                             </Link>
                             <Link 
                                 to="/about" 
-                                className="block text-orange-700 hover:bg-orange-100 p-2 rounded"
+                                className=" text-orange-700 hover:bg-orange-100 p-2 rounded  flex items-center space-x-2"
                                 onClick={toggleMobileSidePanel}
                             >
-                                About
+                                <InfoIcon size={18} />
+                                <span>About</span>
+                            </Link>
+                            <Link 
+                                to="/cart" 
+                                className=" text-orange-700 hover:bg-orange-100 p-2 rounded  flex items-center space-x-2"
+                                onClick={toggleMobileSidePanel}
+                            >
+                                <ShoppingBag size={18} />
+                                <span>Cart</span>
                             </Link>
                             {firebase.isLoggedin ? (
                                 <button

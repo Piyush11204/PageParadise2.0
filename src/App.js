@@ -8,6 +8,8 @@ import AddBook from './Pages/Books/AddBook';
 import PageParadiseAbout from './Pages/Home/about';
 import ForNav from './components/forNav';
 import BookDetails from './Pages/Books/BookDetails';
+import BookCarousel from './Pages/Sales/SalePage';
+import Cart from './Pages/Cart/Cart';
 function App() {
   return (
    <>
@@ -20,6 +22,8 @@ function App() {
       <Route path='/book/addbook' element={<AddBook/>} />
       <Route path='/books/:bookId' element={<BookDetails />} />
       <Route path='about' element={<PageParadiseAbout/>} />
+      <Route path="/sales" element={<BookCarousel/>} />
+      <Route path="/cart" element={<Cart/>} />
     </Routes>
    </>
   );
