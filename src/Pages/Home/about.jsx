@@ -9,6 +9,7 @@ const PageParadiseAbout = () => {
           <h1 className="text-5xl font-bold text-orange-600 mb-4">PageParadise</h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Discover. Connect. Grow. Your Literary Journey Begins Here.
+            
           </p>
         </header>
 
