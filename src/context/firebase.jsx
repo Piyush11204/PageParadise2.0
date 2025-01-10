@@ -7,12 +7,12 @@ import {
   GoogleAuthProvider,
   onAuthStateChanged,
 } from "firebase/auth";
-import { 
-  getFirestore, 
+import {
+  getFirestore,
   addDoc,
   getDocs,
   doc,
-  getDoc, 
+  getDoc,
   collection,
   updateDoc,
   // deleteDoc,
@@ -87,31 +87,31 @@ export const FirebaseProvider = (props) => {
   };
   const fetchBooks = async () => {
     try {
-        const querySnapshot = await getDocs(collection(Firestore, "books")); // Replace 'books' with your Firestore collection name
-        return querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-        }));
+      const querySnapshot = await getDocs(collection(Firestore, "books")); // Replace 'books' with your Firestore collection name
+      return querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
     } catch (error) {
-        console.error("Error fetching books:", error);
-        throw error;
+      console.error("Error fetching books:", error);
+      throw error;
     }
-};
-   const fetchBookById = async (id) => {
+  };
+  const fetchBookById = async (id) => {
     try {
-        const docRef = doc(Firestore, "books", id);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() };
-            } else {
-            console.error("No such document!");
-            return null;
-            }
-   } catch (error) {
-        console.error("Error fetching book:", error);
-        throw error;
+      const docRef = doc(Firestore, "books", id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() };
+      } else {
+        console.error("No such document!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching book:", error);
+      throw error;
     }
-};
+  };
 
 
   // Add a new book to Firestore
@@ -121,7 +121,11 @@ export const FirebaseProvider = (props) => {
     price,
     author,
     image,
-    description
+    description,
+    Publisher,
+    Languages,
+    Pages,
+    ISBN,
   ) => {
     try {
       const docRef = await addDoc(collection(Firestore, "books"), {
@@ -131,6 +135,10 @@ export const FirebaseProvider = (props) => {
         author,
         image,
         description,
+        Publisher,
+        Languages,
+        Pages,
+        ISBN,
       });
       console.log("Document written with ID: ", docRef.id);
       return docRef.id;

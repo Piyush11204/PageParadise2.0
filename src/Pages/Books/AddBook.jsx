@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useFirebase } from '../../context/firebase';
+import { Languages } from 'lucide-react';
 
+
+//    Publisher,
+// Languages,
+// Pages,
+// ISBN,
 const AddBook = () => {
     const firebase = useFirebase();
     const [name, setName] = useState('');
@@ -8,11 +14,16 @@ const AddBook = () => {
     const [price, setPrice] = useState('');
     const [image, setImage] = useState(null);
     const [description, setDescription] = useState('');
+    const [Publisher, setPublisher] = useState('');
+    const [language, setLanguage] = useState('');
+    const [pages, setPages] = useState('');
+    const [isbn, setIsbn] = useState('');
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
 
     const categories = ['Fiction', 'Non-Fiction', 'Science', 'History', 'Biography', 'Children', 'Mystery'];
+    const languages = ['English','Hindi','Marathi','Sanskrit', 'Spanish', 'French', 'German', 'Italian'];
 
 
     const handleSubmit = async (e) => {
@@ -37,7 +48,13 @@ const AddBook = () => {
                         price,
                         author,
                         imageBase64, // Pass the encoded base64 string
-                        description
+                        description,
+                        Publisher,
+                        language,
+                        pages,
+                        isbn
+
+
                     );
     
                     setMessage('Book added successfully with ID: ' + docRef);
@@ -47,6 +64,11 @@ const AddBook = () => {
                     setImage(null);
                     setDescription('');
                     setCategory('');
+                    setPublisher('');
+                    setLanguage('');
+                    setPages('');
+                    setIsbn('');
+
                 };
                 reader.readAsDataURL(image);
             }
@@ -95,6 +117,16 @@ const AddBook = () => {
                             className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
                         />
                     </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Publisher</label>
+                        <input
+                            type="text"
+                            value={Publisher}
+                            onChange={(e) => setPublisher(e.target.value)}
+                            placeholder="Enter Publisher Name"
+                            className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
+                        />
+                    </div>
 
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Price</label>
@@ -103,6 +135,27 @@ const AddBook = () => {
                             value={price}
                             onChange={(e) => setPrice(e.target.value)}
                             placeholder="Enter price"
+                            className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Pages</label>
+                        <input
+                            type="number"
+                            value={pages}
+                            onChange={(e) => setPages(e.target.value)}
+                            placeholder="Enter numbers of Pages"
+                            className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Isbn</label>
+                        <input
+                            type="number"
+                            value={isbn}
+                            onChange={(e) => setIsbn(e.target.value)}
+                            placeholder="Enter isbn if book"
                             className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
                         />
                     </div>
@@ -144,6 +197,24 @@ const AddBook = () => {
                             ))}
                         </select>
                     </div>
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700">Languages</label>
+                        <select
+                            value={Languages}
+                            onChange={(e) => setLanguage(e.target.value)}
+                            className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-300"
+                        >
+                            <option value="" disabled>
+                                Select a Language
+                            </option>
+                            {languages.map((lan) => (
+                                <option key={lan} value={lan}>
+                                    {lan}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
 
                     <button
                         type="submit"

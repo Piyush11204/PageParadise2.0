@@ -136,10 +136,10 @@ const BookDetails = () => {
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h3 className="font-semibold text-lg mb-2">Publication Details</h3>
                 <div className="space-y-2 text-gray-600">
-                  <p>Publisher: {book.publisher || 'Not Available'}</p>
-                  <p>Language: {book.language || 'Not Available'}</p>
-                  <p>Pages: {book.pages || 'Not Available'}</p>
-                  <p>ISBN: {book.isbn || 'Not Available'}</p>
+                  <p>Publisher: {book.Publisher || 'Not Available'}</p>
+                  <p>Language: {book.Languages || 'Not Available'}</p>
+                  <p>Pages: {book.Pages || 'Not Available'}</p>
+                  <p>ISBN: {book.ISBN || 'Not Available'}</p>
                 </div>
               </div>
 
