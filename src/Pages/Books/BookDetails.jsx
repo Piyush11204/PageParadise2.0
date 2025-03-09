@@ -10,6 +10,31 @@ const BookDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [liked, setLiked] = useState(false);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
+  const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+
+  // Load Razorpay script
+  useEffect(() => {
+    const loadRazorpay = () => {
+      const script = document.createElement('script');
+      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
+      script.onload = () => {
+        setRazorpayLoaded(true);
+      };
+      document.body.appendChild(script);
+    };
+
+    loadRazorpay();
+    
+    // Cleanup function to remove the script when component unmounts
+    return () => {
+      const razorpayScript = document.querySelector('script[src="https://checkout.razorpay.com/v1/checkout.js"]');
+      if (razorpayScript) {
+        document.body.removeChild(razorpayScript);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const fetchBookDetails = async () => {
@@ -34,6 +59,60 @@ const BookDetails = () => {
     } catch (error) {
       // Handle error
       console.error("Error adding to cart:", error);
+    }
+  };
+
+  const handlePayment = async () => {
+    if (!book) return;
+    
+    try {
+      setPaymentProcessing(true);
+      
+      if (!razorpayLoaded) {
+        alert("Payment gateway is still loading. Please try again in a few seconds.");
+        setPaymentProcessing(false);
+        return;
+      }
+    
+      // Replace with your Razorpay key ID
+      const options = {
+        key: "rzp_test_EjQc1EWnjKqegB", // Replace with your actual key
+        amount: book.price * 100, // Razorpay expects amount in paise
+        currency: "INR",
+        name: "PageParadise",
+        description: `Purchase of ${book.name}`,
+        image: "https://your-logo-url.png", // Replace with your logo URL
+        // order_id: orderId, // In production, use the order ID from your backend
+        handler: function (response) {
+          // Handle successful payment
+          alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
+          // You can call your backend to verify the payment and update order status
+          // verifyPayment(response);
+        },
+        prefill: {
+          name: "User",
+          email: "piyushkrishna@gmail.com",
+          contact: "9999999999",
+        },
+        notes: {
+          bookId: bookId
+        },
+        theme: {
+          color: "#f97316" // Orange color matching your UI
+        },
+        modal: {
+          ondismiss: function() {
+            setPaymentProcessing(false);
+          }
+        }
+      };
+
+      const razorpayInstance = new window.Razorpay(options);
+      razorpayInstance.open();
+    } catch (error) {
+      console.error("Payment error:", error);
+      setPaymentProcessing(false);
+      alert("Payment failed. Please try again later.");
     }
   };
 
@@ -68,7 +147,7 @@ const BookDetails = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mt-10 mx-auto">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column - Image */}
@@ -100,12 +179,29 @@ const BookDetails = () => {
               {/* Action Buttons */}
               <div className="mt-6 space-y-4">
                 <button 
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-lg text-lg font-semibold flex items-center justify-center transition-colors duration-200"
+                  onClick={handlePayment}
+                  disabled={paymentProcessing || !razorpayLoaded}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-lg text-lg font-semibold flex items-center justify-center transition-colors duration-200 disabled:bg-green-600  disabled:cursor-not-allowed"
                 >
-                  <CreditCard className="mr-2" />
-                  Buy Now - ₹{book.price}.00
+                  {paymentProcessing ? (
+                    <>
+                      <div className="mr-2 h-5 w-5  "></div>
+                      Payment Complete
+                    </>
+                  ) : !razorpayLoaded ? (
+                    <>
+                      <div className="mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Loading Payment...
+                    </>
+                  ) : (
+                    <>
+                      <CreditCard className="mr-2" />
+                      Buy Now - ₹{book.price}.00
+                    </>
+                  )}
                 </button>
-                <button onClick={handleAddToCart}
+                <button 
+                  onClick={handleAddToCart}
                   className="w-full bg-white hover:bg-gray-50 text-gray-800 py-4 rounded-lg text-lg font-semibold flex items-center justify-center border-2 border-gray-200 transition-colors duration-200"
                 >
                   <ShoppingCart className="mr-2" />

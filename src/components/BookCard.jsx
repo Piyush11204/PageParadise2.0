@@ -37,9 +37,7 @@ const BookCard = ({ book }) => {
             {book.name}
           </h2>
           <p className="text-sm text-gray-500 mt-1">by {book.author || "Unknown"}</p>
-          <span className=" text-black  ">
-            ⚡{book.category || "Uncategorized"}
-          </span>
+        
         </div>
         <div className=" p-2">
           {/* "View More" Button */}
