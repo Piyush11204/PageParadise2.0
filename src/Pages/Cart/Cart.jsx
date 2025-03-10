@@ -238,10 +238,7 @@ const Cart = () => {
                 >
                   {isProcessing ? (
                     <>
-                    
-
                       Payment Complete
-                    
                     </>
                   ) : (
                     <>
