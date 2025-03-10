@@ -66,9 +66,10 @@ const Cart = () => {
           setOrderSuccess(true);
         },
         prefill: {
-          name: user?.displayName || "",
-          email: user?.email || "",
-          contact: user?.phoneNumber || ""
+        name : user.displayName,
+        email : user.email,
+        contact : user.phoneNumber || "9822362516"
+        
         },
         notes: {
           address: "Customer Address"

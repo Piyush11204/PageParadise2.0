@@ -5,13 +5,14 @@ import { Heart, BookOpen, Share2, ShoppingCart, CreditCard } from "lucide-react"
 
 const BookDetails = () => {
   const { bookId } = useParams();
-  const firebase = useFirebase();
+  const {firebase , user} = useFirebase();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [liked, setLiked] = useState(false);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
+   const [orderSuccess, setOrderSuccess] = useState(false);
 
   // Load Razorpay script
   useEffect(() => {
@@ -88,11 +89,14 @@ const BookDetails = () => {
           alert(`Payment Successful! Payment ID: ${response.razorpay_payment_id}`);
           // You can call your backend to verify the payment and update order status
           // verifyPayment(response);
+          setPaymentProcessing(false);
+          setOrderSuccess(true);
         },
         prefill: {
-          name: "User",
-          email: "piyushkrishna@gmail.com",
-          contact: "9999999999",
+          name : user.displayName,
+          email : user.email,
+          contact : user.phoneNumber || "9822362516"
+          
         },
         notes: {
           bookId: bookId
@@ -115,6 +119,28 @@ const BookDetails = () => {
       alert("Payment failed. Please try again later.");
     }
   };
+
+  if (orderSuccess) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-purple-100 py-8 px-4">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8 text-center">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-3xl font-semibold text-gray-800 mb-4">Order Successful!</h2>
+          <p className="text-gray-600 mb-6">Thank you for your purchase. Your books will be delivered soon.</p>
+          <button 
+            className="bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-6 rounded-lg transition-colors duration-200"
+            onClick={() => window.location.href = '/'}
+          >
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -185,8 +211,8 @@ const BookDetails = () => {
                 >
                   {paymentProcessing ? (
                     <>
-                      <div className="mr-2 h-5 w-5  "></div>
-                      Payment Complete
+                      <div className="mr-2 h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing...
                     </>
                   ) : !razorpayLoaded ? (
                     <>
