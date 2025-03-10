@@ -5,7 +5,8 @@ import { Heart, BookOpen, Share2, ShoppingCart, CreditCard } from "lucide-react"
 
 const BookDetails = () => {
   const { bookId } = useParams();
-  const {firebase , user} = useFirebase();
+  const firebase  = useFirebase();
+  const user = useFirebase();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
